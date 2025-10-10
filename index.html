@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Misterio de los Cuatro Pasos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Lora:wght@400;600&family=Dancing+Script:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            overflow-y: scroll;
+        }
+
+        body {
+            height: calc(100vh + 50px);
+            background: 
+                linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)),
+                url('https://github.com/DavidMS98/o/blob/main/Gemini_Generated_Image_b8oqx3b8oqx3b8oq%20(1).png?raw=true');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #e0e0e0;
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+            animation: backgroundShift 14s ease-in-out infinite;
+        }
+
+        @keyframes backgroundShift {
+            0% { 
+                background-size: 100% 100%;
+                filter: brightness(1);
+            }
+            7% { 
+                background-size: 105% 105%;
+                filter: brightness(1.1);
+            }
+            14% { 
+                background-size: 100% 100%;
+                filter: brightness(1);
+            }
+            21% { 
+                background-size: 105% 105%;
+                filter: brightness(1.1);
+            }
+            28%, 100% { 
+                background-size: 100% 100%;
+                filter: brightness(1);
+            }
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 182, 193, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 192, 203, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(255, 182, 193, 0.5);
+            border-radius: 50%;
+            animation: float 10s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) translateX(0px); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) translateX(100px); opacity: 0; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px 20px;
+            background: rgba(255, 240, 245, 0.85);
+            border-radius: 20px;
+            border: 2px solid rgba(255, 182, 193, 0.8);
+            box-shadow: 0 0 30px rgba(255, 192, 203, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .mystery-title {
+            font-family: 'Lora', serif;
+            font-size: clamp(1.2rem, 4vw, 2.5rem);
+            font-weight: 600;
+            color: #ff69b4;
+            text-shadow: 
+                0 0 10px rgba(255, 182, 193, 0.8),
+                0 0 20px rgba(255, 192, 203, 0.6),
+                2px 2px 4px rgba(0, 0, 0, 0.3);
+            line-height: 1.4;
+            margin-bottom: 20px;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .event-card {
+            background: linear-gradient(135deg, rgba(255, 240, 245, 0.9), rgba(255, 228, 225, 0.85));
+            border: 2px solid rgba(255, 182, 193, 0.8);
+            border-radius: 15px;
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 192, 203, 0.3);
+        }
+
+        .event-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 182, 193, 0.2), transparent);
+            transform: rotate(-45deg);
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+
+        .event-card:hover::before {
+            animation: shimmer 2s ease-in-out;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            border-color: #ff1493;
+            box-shadow: 0 15px 40px rgba(255, 105, 180, 0.5);
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(-45deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateX(100%) translateY(100%) rotate(-45deg); opacity: 0; }
+        }
+
+        .event-number {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+        }
+
+        .event-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #ff1493;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(255, 20, 147, 0.4);
+        }
+
+        .event-description {
+            font-family: 'Lora', serif;
+            color: #2c2c2c;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .countdown {
+            background: rgba(255, 240, 245, 0.7);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 182, 193, 0.6);
+        }
+
+        .countdown-label {
+            font-family: 'Lora', serif;
+            color: #a0105f;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .countdown-time {
+            font-family: 'Lora', serif;
+            font-size: 1.1rem;
+            color: #a0105f;
+            text-shadow: 0 0 10px rgba(160, 16, 95, 0.3);
+            min-width: 180px;
+            display: inline-block;
+            font-variant-numeric: tabular-nums;
+            font-weight: 600;
+        }
+
+        .event-completed {
+            background: linear-gradient(135deg, rgba(255, 182, 193, 0.9), rgba(255, 192, 203, 0.85));
+            border-color: #ff69b4;
+        }
+
+        .unlock-link {
+            display: block;
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            border-radius: 10px;
+            color: #fff;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            animation: glow 2s ease-in-out infinite;
+            font-family: 'Lora', serif;
+        }
+
+        .unlock-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(255, 105, 180, 0.7);
+            color: #fff;
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 15px rgba(255, 105, 180, 0.5); }
+            50% { box-shadow: 0 0 25px rgba(255, 105, 180, 0.9); }
+        }
+
+        .mystery-image {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 90vw;
+            max-height: 90vh;
+            z-index: 1000;
+            border-radius: 15px;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+            display: none;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 999;
+            display: none;
+            cursor: pointer;
+        }
+
+        .unlock-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 240, 245, 0.95), rgba(255, 228, 225, 0.9));
+            z-index: 2000;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .unlock-screen.active {
+            display: flex;
+        }
+
+        .unlock-image {
+            max-width: 80%;
+            max-height: 60%;
+            border-radius: 15px;
+            box-shadow: 0 0 50px rgba(255, 105, 180, 0.6);
+            margin-bottom: 30px;
+            animation: revealImage 1s ease-out;
+        }
+
+        .unlock-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #ff1493;
+            text-align: center;
+            text-shadow: 0 0 20px rgba(255, 20, 147, 0.6);
+            margin-bottom: 20px;
+            animation: fadeInText 1.5s ease-out;
+        }
+
+        .close-unlock {
+            background: rgba(255, 182, 193, 0.3);
+            border: 2px solid #ff69b4;
+            color: #ff1493;
+            padding: 15px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-family: 'Lora', serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .close-unlock:hover {
+            background: rgba(255, 105, 180, 0.5);
+            transform: scale(1.05);
+        }
+
+        @keyframes revealImage {
+            0% { opacity: 0; transform: scale(0.8) rotateY(90deg); }
+            100% { opacity: 1; transform: scale(1) rotateY(0deg); }
+        }
+
+        @keyframes fadeInText {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .events-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .mystery-title {
+                font-size: 1.2rem;
+            }
+            
+            .event-card {
+                padding: 20px;
+            }
+
+            .unlock-text {
+                font-size: 1.5rem;
+            }
+
+            .unlock-image {
+                max-width: 95%;
+                max-height: 50%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-particles" id="particles"></div>
+    
+    <div class="container">
+        <div class="header">
+            <h1 class="mystery-title">
+                "Cuatro regalos, cuatro viajes. El primero rompe las fronteras de lo real, el segundo apaga un sentido para encender mil más, el tercero transforma la noche en emoción, y el cuarto es una chispa que irá contigo a donde vayas... ¿Qué crees que te espera?"
+            </h1>
+        </div>
+
+        <div class="events-grid">
+            <!-- Evento 1: VR Zombies -->
+            <div class="event-card" id="event1">
+                <div class="event-number">1</div>
+                <h2 class="event-title">👾 Un mundo sin límites</h2>
+                <div class="countdown">
+                    <div class="countdown-label">8 de Noviembre - 18:15</div>
+                    <div class="countdown-time" id="countdown1">Calculando...</div>
+                </div>
+            </div>
+
+            <!-- Evento 2: Dans Le Noir -->
+            <div class="event-card" id="event2">
+                <div class="event-number">2</div>
+                <h2 class="event-title">💜 Sentir con el corazón</h2>
+                <div class="countdown">
+                    <div class="countdown-label">8 de Noviembre - 20:30</div>
+                    <div class="countdown-time" id="countdown2">Calculando...</div>
+                </div>
+            </div>
+
+            <!-- Evento 3: Samsung S25+ -->
+            <div class="event-card" id="event3">
+                <div class="event-number">3</div>
+                <h2 class="event-title">🌌 Siempre en tus manos 🚀💫</h2>
+                <div class="countdown">
+                    <div class="countdown-label">9 de Noviembre - 21:00</div>
+                    <div class="countdown-time" id="countdown3">Calculando...</div>
+                </div>
+            </div>
+
+            <!-- Evento 4: Concierto Candlelight -->
+            <div class="event-card" id="event4">
+                <div class="event-number">4</div>
+                <h2 class="event-title">💡Un eco en la noche</h2>
+                <div class="countdown">
+                    <div class="countdown-label">16 de Noviembre - 21:00</div>
+                    <div class="countdown-time" id="countdown4">Calculando...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pantalla de desbloqueo -->
+    <div class="unlock-screen" id="unlockScreen">
+        <img class="unlock-image" id="unlockImage" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9Im15c3RlcnkiIGN4PSI1MCUiIGN5PSI1MCUiIHI9IjUwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6I2ZmZjsgc3RvcC1vcGFjaXR5OjAuMiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6IzAwMDsgc3RvcC1vcGFjaXR5OjEiLz48L3JhZGlhbEdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgZmlsbD0idXJsKCNteXN0ZXJ5KSIvPjx0ZXh0IHg9IjI1MCIgeT0iMjUwIiBmb250LWZhbWlseT0iQ2luemVsLCBzZXJpZiIgZm9udC1zaXplPSI0OCIgZmlsbD0iI2I4ODYwYiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zNWVtIj7wnZKGPC90ZXh0Pjwvc3ZnPg==" alt="Imagen desbloqueada">
+        <div class="unlock-text" id="unlockText">¡Evento Desbloqueado!</div>
+        <button class="close-unlock" onclick="closeUnlockScreen()">Cerrar</button>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+    <img class="mystery-image" id="mysteryImage" alt="Pista misteriosa">
+
+    <script>
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 10 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        const events = [
+            { 
+                id: 1, 
+                date: new Date('2025-11-08T17:45:00'), 
+                image: 'https://github.com/DavidMS98/o/blob/main/Sin%20t%C3%ADtulo.jpg?raw=true',
+                title: 'Experiencia VR'
+            },
+            { 
+                id: 2, 
+                date: new Date('2025-11-08T20:00:00'), 
+                image: 'https://github.com/DavidMS98/o/blob/main/dans.png?raw=true',
+                title: 'Experiencia culinaria'
+            },
+            { 
+                id: 3, 
+                date: new Date('2025-11-09T20:30:00'), 
+                image: 'https://github.com/DavidMS98/o/blob/main/hams.png?raw=true',
+                title: 'Sin bronquitis porfi... '
+            },
+            { 
+                id: 4, 
+                date: new Date('2025-11-16T15:00:00'), 
+                image: 'https://github.com/DavidMS98/o/blob/main/imag.png?raw=true',
+                title: 'Experiencia acústica'
+            }
+        ];
+
+        function updateCountdown(eventId, targetDate) {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+            const countdownElement = document.getElementById(`countdown${eventId}`);
+            const eventCard = document.getElementById(`event${eventId}`);
+
+            if (distance < 0) {
+                if (!eventCard.classList.contains('event-completed')) {
+                    countdownElement.innerHTML = `
+                        <a href="#" onclick="showUnlockScreen(${eventId})" class="unlock-link">
+                            ¡DESBLOQUEADO! 🔓
+                        </a>
+                    `;
+                    eventCard.classList.add('event-completed');
+                }
+                return true;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            const formattedDays = days.toString().padStart(2, '0');
+            const formattedHours = hours.toString().padStart(2, '0');
+            const formattedMinutes = minutes.toString().padStart(2, '0');
+            const formattedSeconds = seconds.toString().padStart(2, '0');
+
+            const timeString = `${formattedDays}d ${formattedHours}h ${formattedMinutes}m ${formattedSeconds}s`;
+            
+            if (countdownElement.textContent !== timeString) {
+                countdownElement.textContent = timeString;
+            }
+            
+            return false;
+        }
+
+        function showUnlockScreen(eventId) {
+            const event = events.find(e => e.id === eventId);
+            if (event) {
+                document.getElementById('unlockImage').src = event.image;
+                document.getElementById('unlockText').textContent = `¡${event.title} desbloqueada!`;
+                document.getElementById('unlockScreen').classList.add('active');
+            }
+        }
+
+        function closeUnlockScreen() {
+            document.getElementById('unlockScreen').classList.remove('active');
+        }
+
+        function initCountdowns() {
+            events.forEach(event => {
+                updateCountdown(event.id, event.date.getTime());
+            });
+        }
+
+        function startCountdowns() {
+            setInterval(() => {
+                events.forEach(event => {
+                    updateCountdown(event.id, event.date.getTime());
+                });
+            }, 1000);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            initCountdowns();
+            startCountdowns();
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeUnlockScreen();
+            }
+        });
+    </script>
+</body>
+</html>
