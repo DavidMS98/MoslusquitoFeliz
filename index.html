@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Misterio de los Cuatro Pasos</title>
+    <title>El Misterio de los Cinco Pasos</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Lora:wght@400;600&family=Dancing+Script:wght@400;600&display=swap" rel="stylesheet">
     <style>
         * {
@@ -95,7 +95,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
             position: relative;
@@ -133,7 +133,8 @@
 
         .events-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr);
+            justify-items: center;
             gap: 30px;
             margin-top: 40px;
         }
@@ -147,6 +148,8 @@
             overflow: hidden;
             transition: all 0.3s ease;
             box-shadow: 0 10px 30px rgba(255, 192, 203, 0.3);
+            width: 100%;
+            max-width: 380px;
         }
 
         .event-card::before {
@@ -361,6 +364,12 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
+        @media (max-width: 1024px) {
+            .events-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         @media (max-width: 768px) {
             .events-grid {
                 grid-template-columns: 1fr;
@@ -392,7 +401,7 @@
     <div class="container">
         <div class="header">
             <h1 class="mystery-title">
-                "Cuatro regalos, cuatro viajes. El primero rompe las fronteras de lo real, el segundo apaga un sentido para encender mil más, el tercero transforma la noche en emoción, y el cuarto es una chispa que irá contigo a donde vayas... ¿Qué crees que te espera?"
+                "🗝️ Cinco portales se abrirán: uno digital, uno invisible, uno galáctico, uno milenario… y uno que vibra entre llamas... ¿Qué crees que te espera? 🗝️"
             </h1>
         </div>
 
@@ -420,22 +429,33 @@
             <!-- Evento 3: Samsung S25+ -->
             <div class="event-card" id="event3">
                 <div class="event-number">3</div>
-                <h2 class="event-title">🌌 Siempre en tus manos 🚀💫</h2>
+                <h2 class="event-title">🌌 Siempre en tus manos</h2>
                 <div class="countdown">
                     <div class="countdown-label">9 de Noviembre</div>
                     <div class="countdown-time" id="countdown3">Calculando...</div>
                 </div>
             </div>
 
-            <!-- Evento 4: Concierto Candlelight -->
+            <!-- Evento 4: Hammam -->
             <div class="event-card" id="event4">
                 <div class="event-number">4</div>
-                <h2 class="event-title">💡Un eco en la noche</h2>
+                <h2 class="event-title">🤫Lo que no se dice... se siente</h2>
                 <div class="countdown">
-                    <div class="countdown-label">16 de Noviembre</div>
+                    <div class="countdown-label">22 de Noviembre</div>
                     <div class="countdown-time" id="countdown4">Calculando...</div>
                 </div>
             </div>
+
+            <!-- Evento 5: Concierto Candlelight -->
+            <div class="event-card" id="event5">
+                <div class="event-number">5</div>
+                <h2 class="event-title">💡Un eco esperanzador</h2>
+                <div class="countdown">
+                    <div class="countdown-label">16 de Noviembre</div>
+                    <div class="countdown-time" id="countdown5">Calculando...</div>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -465,13 +485,13 @@
         const events = [
             { 
                 id: 1, 
-                date: new Date('2025-11-08T17:45:00'), 
+                date: new Date('2025-11-08T16:45:00'), 
                 image: 'https://github.com/DavidMS98/o/blob/main/Sin%20t%C3%ADtulo.jpg?raw=true',
                 title: 'Experiencia VR'
             },
             { 
                 id: 2, 
-                date: new Date('2025-11-08T20:00:00'), 
+                date: new Date('2025-11-08T19:30:00'), 
                 image: 'https://github.com/DavidMS98/o/blob/main/dans.png?raw=true',
                 title: 'Experiencia culinaria'
             },
@@ -483,7 +503,13 @@
             },
             { 
                 id: 4, 
-                date: new Date('2025-11-16T15:00:00'), 
+                date: new Date('2025-11-14T15:30:00'), 
+                image: 'https://github.com/DavidMS98/o/blob/main/IMG_20251103_115405.png?raw=true',
+                title: 'A relajarseee'
+            },
+            { 
+                id: 5, 
+                date: new Date('2025-11-16T12:00:00'), 
                 image: 'https://github.com/DavidMS98/o/blob/main/imag.png?raw=true',
                 title: 'Experiencia acústica'
             }
